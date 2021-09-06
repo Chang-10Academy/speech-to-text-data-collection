@@ -123,14 +123,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
-
-
-
-<!-- CONTACT -->
-## Contributers
-    Biniam Sisay - binasisayet8790@gmail.com
-    
+Distributed under the MIT License. See `LICENSE` for more information.   
 
 Project Link: [https://github.com/Chang-10Academy/speech-to-text-data-collection.git](https://github.com/Chang-10Academy/speech-to-text-data-collection.git)
 
