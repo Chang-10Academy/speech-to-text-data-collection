@@ -1,6 +1,6 @@
 from kafka import KafkaProducer
 import json
-from data import get_registered_user
+from data_source import get_registered_user
 import time
 
 
