@@ -22,12 +22,12 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-![workflow](https://github.com/Casualty-Challenge/Breast_Cancer_Causality_Inference/actions/workflows/codeql-analysis.yml/badge.svg)
-![workflow](https://github.com/Casualty-Challenge/Breast_Cancer_Causality_Inference/actions/workflows/cml.yaml/badge.svg)
+![workflow](https://github.com/Chang-10Academy/speech-to-text-data-collection/actions/workflows/codeql-analysis.yml/badge.svg)
+![workflow](https://github.com/Chang-10Academy/speech-to-text-data-collection/actions/workflows/cml.yaml/badge.svg)
 [![Build Status](https://app.travis-ci.com/heavye/Breast_Cancer_Causality_Inference.svg?branch=main)](https://app.travis-ci.com/heavye/Breast_Cancer_Causality_Inference)<!-- PROJECT LOGO --> 
 <br />
 <p align="center">
-  <a href="https://github.com/Casualty-Challenge/Breast_Cancer_Causality_Inference">
+  <a href="https://github.com/Chang-10Academy/speech-to-text-data-collection">
     <img src="https://play-lh.googleusercontent.com/O9hD0-C4aYj5r71REmaqWDKjJT5rPTialCYK79ZYc_Kvj46QzQQPE2Jm9aUxB0wmxQ" alt="Logo" width="150" height="200">
   </a>
 
