@@ -1,15 +1,22 @@
-from faker import Faker
+import random
 
-fake = Faker()
+data_path = './data/preprocessed/'
 
 
-def get_registered_user():
-    return {
-        "name": fake.name(),
-        "address": fake.address(),
-        "created_at": fake.year()
-    }
+def get_text_corpus(n):
+    with open(data_path+'data_'+str(n)+'.txt') as f:
+        contents = f.readlines()
+        count = 0
+        list_text = {}
+        for line in contents:
+            count +=1
+            list_text['line'+str(count)] = line
+        f.close()
+        print(list_text)
+
+    return {"text_corpus": list_text}
 
 
 if __name__ == "__main__":
-    print(get_registered_user())
+    n = random.randint(0,9999)
+    print(get_text_corpus(n))
