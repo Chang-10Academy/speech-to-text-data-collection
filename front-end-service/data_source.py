@@ -11,6 +11,7 @@ def get_text_corpus(n):
         for line in contents:
             count +=1
             list_text['line'+str(count)] = line
+            # break
         f.close()
         print(list_text)
 
