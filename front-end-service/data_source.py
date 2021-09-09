@@ -48,8 +48,9 @@ def cloud_get_text_corpus_to_csv():
         list_data = []
         n = 0
         for line in contents:
+            sentence, sep = line.partition('(sentence')
             list_text = {}
-            list_text["sentence"] = line
+            list_text["sentence"] = sentence
             list_data.append(list_text)
             print(f" Progress: {round((n*100)/len(contents),2)} %")
             n += 1
