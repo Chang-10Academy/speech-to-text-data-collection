@@ -1,0 +1,4 @@
+outs:
+- md5: 09102ad95fb75e19983f04d8c14ed42a
+  size: 123281
+  path: data_11.txt

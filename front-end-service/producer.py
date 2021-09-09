@@ -1,7 +1,8 @@
 from kafka import KafkaProducer
 import json
-from data_source import get_registered_user
+from data_source import get_text_corpus
 import time
+import random
 
 
 def json_serializer(data):
@@ -13,7 +14,8 @@ producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
 
 if __name__ == "__main__":
     while 1 == 1:
-        registered_user = get_registered_user()
-        print(registered_user)
-        producer.send("topic0001", registered_user)
+        n = random.randint(0,9999)
+        text_corpus = get_text_corpus(n)
+        print(text_corpus)
+        producer.send("topic0001", text_corpus)
         time.sleep(2)

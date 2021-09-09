@@ -1,0 +1,4 @@
+outs:
+- md5: 22355e8d40dd8ab667090e71ebb147c5
+  size: 110005
+  path: data_3000.txt

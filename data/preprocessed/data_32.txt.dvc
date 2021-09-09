@@ -1,0 +1,4 @@
+outs:
+- md5: f1c05bfbe673530659ca6b489deb86ad
+  size: 111081
+  path: data_32.txt

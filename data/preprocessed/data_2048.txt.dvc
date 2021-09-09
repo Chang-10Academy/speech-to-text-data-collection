@@ -1,0 +1,4 @@
+outs:
+- md5: 32231d3810ddc1255afdebab055e10b7
+  size: 108940
+  path: data_2048.txt

@@ -1,0 +1,4 @@
+outs:
+- md5: 12679d89011dd3aae385cf503835b1ce
+  size: 120813
+  path: data_2019.txt

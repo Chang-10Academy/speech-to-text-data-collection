@@ -1,0 +1,4 @@
+outs:
+- md5: ae19502c452d9d4e51c169250bdecfe1
+  size: 112192
+  path: data_250.txt
