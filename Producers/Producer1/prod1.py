@@ -1,18 +1,29 @@
+# from kafka import KafkaProducer
 import os
-allSentence = []
-def readData(path, numberoffile):
-    for i in range(0,numberoffile):
-        file = open(path+'\data_%i.txt'%i,encoding="utf8")
-        sentences = file.readlines()
-        allSentence.extend(sentences)
-    return allSentence
+import json
+from sys import path
+from dataProd1 import readData
+import time
 
-path = str(os.path.abspath(os.path.join('../../data/preprocessed')))
-# print(len(allSentence))
-readData(path,9999)
-print(len(allSentence))
 
-# from utils.path import Path
-# paths = Path()
-# print(paths.getData)
+def json_serializer(data):
+    return json.dumps(data).encode("utf-8")
 
+
+# producer = KafkaProducer(bootstrap_servers=['192.168.0.10:9092'],
+#                          value_serializer=json_serializer)
+path  = str(os.path.abspath(os.path.join('../../data/preprocessed')))
+addFactor = 10
+n = 0
+sfiles = 0
+efiles = 10
+sentence = []
+if __name__ == "__main__":
+    while efiles < 9999:
+        n = n + 1
+        print(readData(path,sfiles,efiles)[len(readData(path,sfiles,efiles)) -1])
+        print('....................................................')
+        sfiles = n * addFactor  + sfiles
+        efiles = n * addFactor  + efiles
+        # producer.send("registered_user", registered_user)
+        time.sleep(2)
