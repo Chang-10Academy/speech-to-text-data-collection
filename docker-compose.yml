@@ -36,3 +36,16 @@ services:
     environment:
       ZK_HOSTS: "zookeeper-1:2181"
 
+
+  web:
+    build: "./services/web_app"
+    ports: 
+      - "5000:5000"
+    volumes: 
+      - .:/services/web_app
+    depends_on: 
+      - redis
+
+  redis:
+    image: redis
+
