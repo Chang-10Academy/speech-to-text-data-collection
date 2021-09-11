@@ -10,22 +10,21 @@ sys.path.append(os.path.abspath(os.path.join('../front-end-service')))
 
 app = Flask(__name__)
 redis = Redis(host='redis', port=6379)
+consumer = KafkaConsumer(
+                "topic0001",
+                bootstrap_servers=local_boostrap_server_address,
+                auto_offset_reset='latest',
+                group_id="consumer-group-a")
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == "GET":
         e = ""
         try:
-            consumer = KafkaConsumer(
-                "topic0001",
-                bootstrap_servers=local_boostrap_server_address,
-                auto_offset_reset='latest',
-                group_id="consumer-group-a")
-            print("starting the consumer")
             for msg in consumer:
                 print("Registered User = {}".format(json.loads(msg.value)))
                 data_received = json.loads(msg.value)
-                e = "no except"
+                break
         except Exception as e:
             print(e)
             data_received = "Nothing received"
@@ -34,18 +33,12 @@ def home():
         return render_template("index.html", 
                                 count=5, 
                                 text_corpus=data_received,
-                                debg=e)
+                                debg="e")
 
     if request.method == "POST":
         data = request.form['dummy_data']
         data_dummy = "Data you sent: > " +str(data)
         try:
-            consumer = KafkaConsumer(
-                "topic0001",
-                bootstrap_servers=local_boostrap_server_address,
-                auto_offset_reset='latest',
-                group_id="consumer-group-a")
-            print("starting the consumer")
             for msg in consumer:
                 print("Registered User = {}".format(json.loads(msg.value)))
                 data_received = json.loads(msg.value)
@@ -60,4 +53,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0",debug=True)
