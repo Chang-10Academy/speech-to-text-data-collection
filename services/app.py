@@ -50,7 +50,7 @@ def home():
                     break
 
             except:
-                pass
+                data_received = "Nothing received"
 
         
         return render_template("index.html", 
