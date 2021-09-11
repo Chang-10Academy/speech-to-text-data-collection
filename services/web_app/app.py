@@ -14,6 +14,7 @@ redis = Redis(host='redis', port=6379)
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == "GET":
+        e = ""
         try:
             consumer = KafkaConsumer(
                 "topic0001",
