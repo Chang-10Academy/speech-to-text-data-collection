@@ -24,7 +24,7 @@ def home():
             for msg in consumer:
                 print("Registered User = {}".format(json.loads(msg.value)))
                 data_received = json.loads(msg.value)
-
+                e = "no except"
         except Exception as e:
             print(e)
             data_received = "Nothing received"
@@ -33,7 +33,7 @@ def home():
         return render_template("index.html", 
                                 count=5, 
                                 text_corpus=data_received,
-                                debug=e)
+                                debg=e)
 
     if request.method == "POST":
         data = request.form['dummy_data']
