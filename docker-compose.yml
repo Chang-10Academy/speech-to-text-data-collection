@@ -1,0 +1,144 @@
+---
+version: '2'
+services:
+  zookeeper-1:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 22181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
+    network_mode: host
+    extra_hosts:
+      - "moby:127.0.0.1"
+
+  zookeeper-2:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
+    network_mode: host
+    extra_hosts:
+      - "moby:127.0.0.1"
+
+  zookeeper-3:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 42181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:22888:23888;localhost:32888:33888;localhost:42888:43888
+    network_mode: host
+    extra_hosts:
+      - "moby:127.0.0.1"
+
+  kafka-1:
+    image: confluentinc/cp-kafka:latest
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:22181,localhost:32181,localhost:42181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:19092
+    extra_hosts:
+      - "moby:127.0.0.1"
+
+  kafka-2:
+    image: confluentinc/cp-kafka:latest
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: localhost:22181,localhost:32181,localhost:42181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+    extra_hosts:
+      - "moby:127.0.0.1"
+
+  kafka-3:
+    image: confluentinc/cp-kafka:latest
+    network_mode: host
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: localhost:22181,localhost:32181,localhost:42181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:39092
+    extra_hosts:
+      - "moby:127.0.0.1"
+
+  schema-registry:
+      image: confluentinc/cp-schema-registry:latest
+      container_name: schema-registry
+      depends_on:
+        - zookeeper-1
+        - zookeeper-2
+        - zookeeper-3
+        - kafka-1
+        - kafka-2
+        - kafka-3
+      ports:
+        - 8081:8081
+      environment:
+        SCHEMA_REGISTRY_HOST_NAME: schema-registry
+        SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: localhost:22181,localhost:32181,localhost:42181
+        SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
+
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect-base:latest
+    container_name: kafka-connect
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+      - schema-registry
+    ports:
+      - 8083:8083
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: "localhost:19092,localhost:29092,localhost:39092"
+      CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: 1
+      CONNECT_CONFIG_STORAGE_TOPIC: _kafka-connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: _kafka-connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: _kafka-connect-status
+      CONNECT_KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+      CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+      
+  ksqldb:
+    image: confluentinc/ksqldb-server:0.7.1
+    hostname: ksqldb
+    container_name: ksqldb
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+      - kafka-connect
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_LISTENERS: http://0.0.0.0:8088
+      KSQL_BOOTSTRAP_SERVERS: localhost:19092,localhost:29092,localhost:39092
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+      KSQL_KSQL_CONNECT_URL: http://kafka-connect:8083
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      KSQL_KSQL_SERVICE_ID: confluent_rmoff_01
+      KSQL_KSQL_HIDDEN_TOPICS: '^_.*'
