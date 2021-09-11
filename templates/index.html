@@ -94,30 +94,47 @@
           playAudio.src = audioSrc;
         }
       })
-  
+
+                   
       // If any error occurs then handles the error 
       .catch(function (err) {
         console.log(err.name, err.message);
+
+        // uploading the recording
+        document.getElementById('upload').style.display = "block"
+
+        $("#upload").click(function () {      
+      
+          $.ajax({
+            type: "POST",
+            url: "/volunteer",
+            data: blob,
+            contentType: false,
+            cache: false,
+            processData: false,
+            async: true,
+            success: function (data) {
+              // Get and display the result
+              console.log("POST request successful")
+              console.log("data:", data);
+              // $("#result").text(" Result:  " + data);
+            },
+          });
+        });
       });
   </script>
 </head>
 
   
 <body style="background-color:rgb(255, 255, 255); ">
+
   <header>
-    <h1>Record and Play Audio</h1>
+    <h1>READ AND RECORD</h1>
+    <h2>Please hit the record button and read the text below</h2>
+    <h3>{{data}}</h3>
   </header>
-  <!--button for 'start recording'-->
-  <p>
-    <button id="btnStart">START RECORDING</button>
-                
-    <button id="btnStop">STOP RECORDING</button>
-    <!--button for 'stop recording'-->
-  </p>
-  <header>
-    <h1>Click START RECORDING and Read The Text Below</h1>
-  </header>
-  
+
+
   <!--for record-->
   <audio controls></audio>
 
@@ -126,8 +143,11 @@
   
   <!--for play the audio-->
   <!-- <audio id="adioPlay" controls></audio> -->
+  </section>
+  <button id="upload" style="width: 30%; height: 50px;">Click Upload</button>
+
   <header>
-    <h1>Click SUBMIT RECORDING and Read The Text Below</h1>
+    <h1>Upload Recorded audio of the Text Above and click SUBMIT RECORDING</h1>
   </header>
   <form method='POST' enctype="multipart/form-data">
     <input type="file" name="audio_data" />
