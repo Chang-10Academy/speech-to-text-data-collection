@@ -5,7 +5,7 @@ import os, sys
 from kafka import KafkaConsumer
 import json
 
-local_boostrap_server_address = 'localhost:9092'
+local_boostrap_server_address = 'localhost:9093'
 sys.path.append(os.path.abspath(os.path.join('../front-end-service')))
 
 app = Flask(__name__)
@@ -32,7 +32,8 @@ def home():
         
         return render_template("index.html", 
                                 count=5, 
-                                text_corpus=data_received)
+                                text_corpus=data_received,
+                                debug=e)
 
     if request.method == "POST":
         data = request.form['dummy_data']
