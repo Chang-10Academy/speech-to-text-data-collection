@@ -5,7 +5,7 @@ services:
     image: wurstmeister/zookeeper
     container_name: zookeeper
     ports:
-      - "2181:2181"
+      - "2182:2181"
   
   zookeeper-1:
     image: zookeeper:latest
@@ -17,7 +17,7 @@ services:
     image: wurstmeister/kafka
     container_name: kafka
     ports: 
-      - "9092:9092"
+      - "9093:9092"
     environment: 
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -35,4 +35,17 @@ services:
       - "9000:9000"
     environment:
       ZK_HOSTS: "zookeeper-1:2181"
+
+
+  web:
+    build: "./services/web_app"
+    ports: 
+      - "5000:5000"
+    volumes: 
+      - .:/services/web_app
+    depends_on: 
+      - redis
+
+  redis:
+    image: redis
 
