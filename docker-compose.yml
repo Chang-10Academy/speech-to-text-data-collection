@@ -38,11 +38,11 @@ services:
 
 
   web:
-    build: "./services/web_app"
+    build: .
     ports: 
       - "5000:5000"
     volumes: 
-      - .:/services/web_app
+      - .:/speech-to-text-data-collection/services
     depends_on: 
       - redis
       - kafka
