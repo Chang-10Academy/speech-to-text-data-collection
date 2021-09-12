@@ -2,6 +2,9 @@
 <html>
   
 <head>
+  <script language="JavaScript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script language="JavaScript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+  <!-- <script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script> -->
   <script>
   
     let audioIN = { audio: true };
@@ -46,12 +49,16 @@
   
         // 2nd audio tag for play the audio
         let playAudio = document.getElementById('adioPlay');
+
+        // upload
+        // let upload = document.getElementById('upload');
   
         // This is the main thing to recorde 
         // the audio 'MediaRecorder' API
         let mediaRecorder = new MediaRecorder(mediaStreamObj);
         // Pass the audio stream 
   
+        
         // Start event
         start.addEventListener('click', function (ev) {
           mediaRecorder.start();
@@ -63,27 +70,27 @@
           mediaRecorder.stop();
           // console.log(mediaRecorder.state);
         });
-  
-        // If audio data available then push 
-        // it to the chunk array
-        mediaRecorder.ondataavailable = function (ev) {
-          dataArray.push(ev.data);
-        }
+
+
   
         // Chunk array to store the audio data 
-        let dataArray = [];
+        // let dataArray = [];
+        let chunk = [];
   
         // Convert the audio data in to blob 
         // after stopping the recording
         mediaRecorder.onstop = function (ev) {
   
           // blob of type mp3
-          let audioData = new Blob(dataArray, 
-                    { 'type': 'audio/mp3;' });
+          let audioData = new Blob(chunks, 
+                    { 'type' : 'audio/ogg; codecs=opus' });          
+          // let audioData = new Blob(dataArray, 
+          //           { 'type': 'audio/mp3;' });
             
           // After fill up the chunk 
           // array make it empty
-          dataArray = [];
+          // dataArray = []
+          chunks = [];
   
           // Creating audio url with reference 
           // of created blob named 'audioData'
@@ -92,13 +99,9 @@
   
           // Pass the audio url to the 2nd video tag
           playAudio.src = audioSrc;
-        }
-      })
+        }       
+             
 
-                   
-      // If any error occurs then handles the error 
-      .catch(function (err) {
-        console.log(err.name, err.message);
 
         // uploading the recording
         document.getElementById('upload').style.display = "block"
@@ -107,8 +110,8 @@
       
           $.ajax({
             type: "POST",
-            url: "/volunteer",
-            data: blob,
+            url: "/",
+            data: audioData,
             contentType: false,
             cache: false,
             processData: false,
@@ -120,7 +123,17 @@
               // $("#result").text(" Result:  " + data);
             },
           });
-        });
+
+        // If audio data available then push 
+        // it to the chunk array
+        mediaRecorder.ondataavailable = function (ev) {
+          chunks.push(ev.data);
+        }
+      })
+      // If any error occurs then handles the error 
+  //     (function(err) {
+  //   console.log('The following error occured: ' + err);
+  // });
       });
   </script>
 </head>
@@ -140,7 +153,10 @@
 
   <!--'controls' use for add 
     play, pause, and volume-->
-  
+
+  <!--for start the audio-->
+  <audio id="btnStart" controls></audio>
+  <audio id="btnStop" controls></audio>
   <!--for play the audio-->
   <!-- <audio id="adioPlay" controls></audio> -->
   </section>

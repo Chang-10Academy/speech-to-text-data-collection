@@ -40,18 +40,24 @@ def kafkaProducer():
         return render_template('index.html',data = text)
 
     if request.method == "POST":
-        f = request.files['audio_data']
-        with open('audio_file.wav', 'wb') as audio:
-            f.save(audio)
+        f = request.data
+        print(type(f))
+        print(f)
+            
+        return 'Done'
+        
+        # f = request.files['audio_data']
+        # with open('audio_file.wav', 'wb') as audio:
+        #     f.save(audio)
 
-        aud = audio_byte('audio_file.wav')
-        aud = json.dumps(aud).encode('utf-8')
-        print (aud)
-            # push data into INFERENCE TOPIC
-        producer.send(TOPIC_NAME, key = b'audio', value = aud)
-        producer.flush()
+        # aud = audio_byte('audio_file.wav')
+        # aud = json.dumps(aud).encode('utf-8')
+        # print (aud)
+        #     # push data into INFERENCE TOPIC
+        # producer.send(TOPIC_NAME, key = b'audio', value = aud)
+        # producer.flush()
         # print("Sent to consumer")
-        return render_template('index.html',request = 'POST')
+        # return render_template('index.html',request = 'POST')
 
 # def kafkaProducer():
 #     # if request.method == 'POST':
