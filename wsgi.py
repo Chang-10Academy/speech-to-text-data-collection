@@ -15,15 +15,18 @@ if type(TOPIC_NAME) == bytes:
 else:
     TOPIC_NAME = TOPIC_NAME
 
-KAFKA_SERVER = ['kafka:29092']
+# KAFKA_SERVER = ['kafka:29092','kafka:29092','kafka:39092']
 
+# # producer = KafkaProducer(
+# #     bootstrap_servers = KAFKA_SERVER,
+# #     api_version = (0, 11, 15)
+# # )
 # producer = KafkaProducer(
-#     bootstrap_servers = KAFKA_SERVER,
-#     api_version = (0, 11, 15)
+#     bootstrap_servers = KAFKA_SERVER, api_version=(0,11,5)
 # )
-producer = KafkaProducer(
-    bootstrap_servers = KAFKA_SERVER, api_version=(0,11,5)
-)
+KafkaProducer(bootstrap_servers=["b-1.demo-cluster-1.9q7lp7.c1.kafka.eu-west-1.amazonaws.com:9092",
+    "b-2.demo-cluster-1.9q7lp7.c1.kafka.eu-west-1.amazonaws.com:9092"],api_version = (0,10,1))
+    
 def audio_byte(audio):
     wave = wavio.read(audio)
     rate = wave.rate
@@ -42,7 +45,9 @@ def kafkaProducer():
     if request.method == "POST":
         f = request.data
         print(type(f))
-        print(f)
+        # print(f)
+        producer.send("audio",f)
+        print('sent to producer')
             
         return 'Done'
         

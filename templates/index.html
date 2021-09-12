@@ -1,174 +1,50 @@
 <!DOCTYPE html>
 <html>
   
-<head>
-  <script language="JavaScript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script language="JavaScript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-  <!-- <script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script> -->
-  <script>
-  
-    let audioIN = { audio: true };
-    //  audio is true, for recording
-  
-    // Access the permission for use
-    // the microphone
-    navigator.mediaDevices.getUserMedia(audioIN)
-  
-      // 'then()' method returns a Promise
-      .then(function (mediaStreamObj) {
-  
-        // Connect the media stream to the
-        // first audio element
-        let audio = document.querySelector('audio');
-        //returns the recorded audio via 'audio' tag
-  
-        // 'srcObject' is a property which 
-        // takes the media object
-        // This is supported in the newer browsers
-        if ("srcObject" in audio) {
-          audio.srcObject = mediaStreamObj;
-        }
-        else {   // Old version
-          audio.src = window.URL
-            .createObjectURL(mediaStreamObj);
-        }
-  
-        // It will play the audio
-        audio.onloadedmetadata = function (ev) {
-  
-          // Play the audio in the 2nd audio
-          // element what is being recorded
-          audio.play();
-        };
-  
-        // Start record
-        let start = document.getElementById('btnStart');
-  
-        // Stop record
-        let stop = document.getElementById('btnStop');
-  
-        // 2nd audio tag for play the audio
-        let playAudio = document.getElementById('adioPlay');
+  <section id="hero">
 
-        // upload
-        // let upload = document.getElementById('upload');
-  
-        // This is the main thing to recorde 
-        // the audio 'MediaRecorder' API
-        let mediaRecorder = new MediaRecorder(mediaStreamObj);
-        // Pass the audio stream 
-  
-        
-        // Start event
-        start.addEventListener('click', function (ev) {
-          mediaRecorder.start();
-          // console.log(mediaRecorder.state);
-        })
-  
-        // Stop event
-        stop.addEventListener('click', function (ev) {
-          mediaRecorder.stop();
-          // console.log(mediaRecorder.state);
-        });
+    <div class="container">
+        <div class="row">
 
 
+
+    <div class="wrapper">
+
+        <header>
+            <h1>Recording page</h1>
+            <h2>Please hit the record button and record the audio for the text you see below!</h2>
+            <h3>{{data}}</h3>
+        </header>
   
-        // Chunk array to store the audio data 
-        // let dataArray = [];
-        let chunk = [];
+        <section class="main-controls">
+          <canvas class="visualizer" height="60px"></canvas>
+          <div id="buttons">
+            <button class="record">Record</button>
+            <button class="stop">Stop</button>
+          </div>
+        </section>
   
-        // Convert the audio data in to blob 
-        // after stopping the recording
-        mediaRecorder.onstop = function (ev) {
+        <section class="sound-clips">
   
-          // blob of type mp3
-          let audioData = new Blob(chunks, 
-                    { 'type' : 'audio/ogg; codecs=opus' });          
-          // let audioData = new Blob(dataArray, 
-          //           { 'type': 'audio/mp3;' });
             
-          // After fill up the chunk 
-          // array make it empty
-          // dataArray = []
-          chunks = [];
-  
-          // Creating audio url with reference 
-          // of created blob named 'audioData'
-          let audioSrc = window.URL
-              .createObjectURL(audioData);
-  
-          // Pass the audio url to the 2nd video tag
-          playAudio.src = audioSrc;
-        }       
-             
+        </section>
+        <button id="upload" style="width: 50%; height: 50px;">Upload</button>
+        
 
+      </div>
+      <header>
+        <h1>Upload Recorded audio of the Text Above and click SUBMIT RECORDING</h1>
+      </header>
+      <form method='POST' enctype="multipart/form-data">
+        <input type="file" name="audio_data" />
+        <button type="submit">SUBMIT RECORDING</button>
+      </form>
 
-        // uploading the recording
-        document.getElementById('upload').style.display = "block"
+    
+<script src="{{ url_for('static', filename='js/app.js')}}" async defer></script>
 
-        $("#upload").click(function () {      
-      
-          $.ajax({
-            type: "POST",
-            url: "/",
-            data: audioData,
-            contentType: false,
-            cache: false,
-            processData: false,
-            async: true,
-            success: function (data) {
-              // Get and display the result
-              console.log("POST request successful")
-              console.log("data:", data);
-              // $("#result").text(" Result:  " + data);
-            },
-          });
-
-        // If audio data available then push 
-        // it to the chunk array
-        mediaRecorder.ondataavailable = function (ev) {
-          chunks.push(ev.data);
-        }
-      })
-      // If any error occurs then handles the error 
-  //     (function(err) {
-  //   console.log('The following error occured: ' + err);
-  // });
-      });
-  </script>
-</head>
-
-  
-<body style="background-color:rgb(255, 255, 255); ">
-
-  <header>
-    <h1>READ AND RECORD</h1>
-    <h2>Please hit the record button and read the text below</h2>
-    <h3>{{data}}</h3>
-  </header>
-
-
-  <!--for record-->
-  <audio controls></audio>
-
-  <!--'controls' use for add 
-    play, pause, and volume-->
-
-  <!--for start the audio-->
-  <audio id="btnStart" controls></audio>
-  <audio id="btnStop" controls></audio>
-  <!--for play the audio-->
-  <!-- <audio id="adioPlay" controls></audio> -->
-  </section>
-  <button id="upload" style="width: 30%; height: 50px;">Click Upload</button>
-
-  <header>
-    <h1>Upload Recorded audio of the Text Above and click SUBMIT RECORDING</h1>
-  </header>
-  <form method='POST' enctype="multipart/form-data">
-    <input type="file" name="audio_data" />
-    <button type="submit">SUBMIT RECORDING</button>
-  </form>
-</body>
+</div>
+</div>
+</section>
   
 </html>
