@@ -20,10 +20,10 @@ TOPIC_NAME = 'audio'
 # producer = KafkaProducer(
 #     bootstrap_servers = KAFKA_SERVER, api_version=(0,11,5)
 # )
-KafkaProducer(bootstrap_servers=["b-1.demo-cluster-1.9q7lp7.c1.kafka.eu-west-1.amazonaws.com:9092",
-    "b-2.demo-cluster-1.9q7lp7.c1.kafka.eu-west-1.amazonaws.com:9092"],api_version = (0,10,1))
+# KafkaProducer(bootstrap_servers=["b-1.demo-cluster-1.9q7lp7.c1.kafka.eu-west-1.amazonaws.com:9092",
+#     "b-2.demo-cluster-1.9q7lp7.c1.kafka.eu-west-1.amazonaws.com:9092"],api_version = (0,10,1))
 
-# KafkaProducer(bootstrap_servers=["localhost:9092"],api_version = (0,10,1))
+KafkaProducer(bootstrap_servers=["localhost:9092"],api_version = (0,10,1))
     
 def audio_byte(audio):
     wave = wavio.read(audio)
