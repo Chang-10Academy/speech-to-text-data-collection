@@ -11,12 +11,12 @@ cloud_data_lake_path = '/mnt/10ac-batch-4/all-data/Chang/'
 
 
 def get_text_corpus(n):
-    with open(data_path+'data_'+str(n)+'.txt') as f:
+    with open(cloud_data_path+'data_'+str(n)+'.txt') as f:
         contents = f.readlines()
-        count = 0
+#         count = 0
         list_text = {}
         for line in contents:
-            count +=1
+#             count +=1
             list_text['line'+str(count)] = line
             break
         f.close()
