@@ -14,13 +14,14 @@ consumer = KafkaConsumer(
     value_deserializer=lambda x: loads(x.decode('utf-8'))
     )
 
-
-
 for message in consumer:
     message = message.value
     print('consumed: {} {} {}'.format(message['transcript'], message['sample_rate'], message['audio'][:10]))
-    transcripts = open('../data/Transcripts.txt', 'a', encoding = "utf-8")
 
+    try:
+        transcripts = open('../data/Transcripts.txt', 'a', encoding = "utf-8")
+    except FileNotFoundError:
+        logging.error('transcript file not found')
     filename = str(random.randint(1,10**12))
     transcripts.write("({}) : {}\n".format(filename, message['transcript']))
     transcripts.close()
