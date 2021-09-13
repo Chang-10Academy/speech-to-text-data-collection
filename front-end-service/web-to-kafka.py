@@ -17,7 +17,6 @@ def send_order_info_to_kafka(mapper, connection, target):
     order_dict = {"record_id": record.id,
 "record_size": record.size,
 "record_time_ms": record.time()
-#“is_paid”: target.is_prepaid
 }
     producer.send(topic_name, value=json.dumps(order_dict).encode())
     producer.flush()
