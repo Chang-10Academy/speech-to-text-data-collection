@@ -16,7 +16,7 @@ if __name__ == "__main__":
 										     enable_auto_commit=True)
 	for event in consumer:
 		event_data = event.value
-# 		print(event_data)
+		print(event_data)
 # 		bytes_wav = bytes()
 # 		byte_io = io.BytesIO(event_data)
 # 		print ("done")
