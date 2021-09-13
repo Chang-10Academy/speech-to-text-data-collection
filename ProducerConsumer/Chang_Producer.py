@@ -18,8 +18,8 @@ class Chang_Producer:
         return self.admin_client.list_topics()
     
     def create_topic(self, topic_name: str, dont_create_if_exist = True, num_partitions=1, replication_factor=2):
-        topic_list =  self.admin_client.list_topics()
-        if dont_create_if_exist and  topic_name in topic_list:
+        topic_list =  []
+        if dont_create_if_exist and  topic_name in self.get_topics():
             print("Topic already exsit")
             return
         

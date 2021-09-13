@@ -37,10 +37,18 @@ class TextDataServ:
         total_file = self.get_file_length()
         sents = readData(self.textPath, 0, total_file)
         
+        
         text_df = pd.DataFrame()
         text_df['text'] = sents
         text_df['length'] = text_df['text'].map(lambda x: len(x))
+        
+        file_names = [ f"data_{i}" for i in range(0, len(text_df['text'].to_list())) ]
+
+        text_df['file_name'] = file_names
         text_df.to_csv(csv_path, index=False)
+        text_df.head()
+        text_df.info()
+        print(len(file_names))
         
         
         return text_df
@@ -85,13 +93,14 @@ class TextDataServ:
             with open(csv_path, 'wb') as f:
                    s3.download_fileobj(bucket, file_name, f)
 
-            print("Finished downloading csv file to s3 bucket")
+            print("Finished downloading csv file from s3 bucket")
+            return True
+
          
         except ClientError as e:
             logging.error(e)
             return False
         
-        return True
 
 
 
