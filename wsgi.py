@@ -50,7 +50,8 @@ def audio_byte(audio):
 @app.route('/', methods=['GET','POST'])
 def kafkaProducer():  
     if request.method == "GET":
-        text =  "አገራችን ከአፍሪካም ሆነ ከሌሎች የአለም አገራት ጋር ያላትን አለም አቀፋዊ ግንኙነት ወደ ላቀ ደረጃ ያሸጋገረ ሆኗል በአገር ውስጥ አራት አለም ጀልባያውም የወረቀት"
+#         text =  "አገራችን ከአፍሪካም ሆነ ከሌሎች የአለም አገራት ጋር ያላትን አለም አቀፋዊ ግንኙነት ወደ ላቀ ደረጃ ያሸጋገረ ሆኗል በአገር ውስጥ አራት አለም ጀልባያውም የወረቀት"
+        text = random.choice(open('/mnt/10ac-batch-4/all-data/transcriptions/Amharic_transcriptions/Clean_Amharic.txt').readlines())
         return render_template('index.html',data = text)
 
     if request.method == "POST":
