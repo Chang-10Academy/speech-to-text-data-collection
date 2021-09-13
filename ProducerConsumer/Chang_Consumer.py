@@ -15,7 +15,13 @@ class Chang_Consumer:
     def consume(self):
         for msg in self.consumer:
             yield msg
-        
+
+    def poll(self, max_records=1):
+        messages = self.consumer.poll(timeout_ms=1000, max_records=max_records)
+        for tp, mess in messages.items():
+            message=mess[0]
+            return message
+
         
 if __name__ == "__main__":
     cloud_boostrap_server_address1 = "b-1.demo-cluster-1.9q7lp7.c1.kafka.eu-west-1.amazonaws.com:9092"

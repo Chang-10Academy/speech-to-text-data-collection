@@ -15,9 +15,10 @@ local_boostrap_server_address = 'localhost:9093'
 TOPIC_NAME = "test_text_dan"
 
 consumer = Chang_Consumer(broker = cloud_boostrap_server_address1, topic_name=TOPIC_NAME)
-gen = consumer.consume()
 
 @app.get("/text")
 def get_text():
+    msg = next(consumer.consume())
+
     result = {"offset": msg.offset, "value": msg.value}
-    return JSONResponse(content=msg.value, headers=headers)
+    return result
