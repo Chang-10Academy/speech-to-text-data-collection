@@ -3,6 +3,8 @@ import os
 import json
 import uuid
 from concurrent.futures import ThreadPoolExecutor
+from scipy.io.wavfile import read, write
+import pydub
 
 
 if __name__ == "__main__":
