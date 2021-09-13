@@ -5,14 +5,49 @@ services:
     image: wurstmeister/zookeeper
     container_name: zookeeper
     ports:
-      - "2181:2181"
+      - "2182:2181"
+  
+  zookeeper-1:
+    image: zookeeper:latest
+    restart: always
+    environment:
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181
 
   kafka:
     image: wurstmeister/kafka
     container_name: kafka
     ports: 
-      - "9092:9092"
+      - "9093:9092"
     environment: 
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  cmak:
+    image: hlebalbau/kafka-manager:stable
+    container_name: cmak
+    restart: always
+    command:
+      - "-Dcmak.zkhosts=zookeeper-1:2181"
+      - "-DbasicAuthentication.enabled=true"
+      - "-DbasicAuthentication.username=username"
+      - "-DbasicAuthentication.password=password"
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: "zookeeper-1:2181"
+
+
+  redis:
+    image: redis
+
+  web:
+    build: .
+    ports: 
+      - "5000:5000"
+    volumes: 
+      - .:/data_collection
+    depends_on: 
+      - redis
+      - kafka
+
 
