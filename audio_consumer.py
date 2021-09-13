@@ -19,6 +19,6 @@ if __name__ == "__main__":
 		bytes_wav = bytes()
 		byte_io = io.BytesIO(event_data)
 		print ("done")
-		audio = AudioSegment.from_raw(byte_io, sample_width=2, frame_rate==22050, channels=1).export("newfile", format='wav')
+		audio = AudioSegment.from_raw(byte_io, sample_width=2, frame_rate=22050, channels=1).export("newfile", format='wav')
 		write(r"/home/stella_kibika/speech-to-text-data-collection/Audios/newfile.wav", 22050, audio)
 
