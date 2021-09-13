@@ -28,7 +28,6 @@ def read_unprocessed_data_from_s3():
     
 def spark_audio_processing():
     print("spark audio processing completed")
-
     pass
     
 
