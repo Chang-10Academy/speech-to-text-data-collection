@@ -6,6 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from scipy.io.wavfile import read, write
 import pydub
 import io
+import s3
 
 
 if __name__ == "__main__":
