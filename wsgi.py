@@ -6,6 +6,8 @@ from kafka import KafkaConsumer, KafkaProducer
 from scipy.io.wavfile import read, write
 import io
 import wavio
+import kafka
+from kafka.admin import KafkaAdminClient,NewTopic
 
 app = Flask(__name__)
 
