@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI
 from fastapi.responses import JSONResponse
+import uvicorn
 import os
 import sys
 
@@ -22,3 +23,6 @@ def get_text():
 
     result = {"offset": msg.offset, "value": msg.value}
     return result
+
+if __name__ == '__main__':
+    uvicorn.run(app, port=6000, host='0.0.0.0')
