@@ -17,9 +17,9 @@ if __name__ == "__main__":
 	for event in consumer:
 		event_data = event.value
 # 		print(event_data)
-		bytes_wav = bytes()
-		byte_io = io.BytesIO(event_data)
-		print ("done")
-		audio = pydub.AudioSegment.from_raw(byte_io, sample_width=2, frame_rate=22050, channels=1).export("newfile", format='wav')
-		write(r"/home/stella_kibika/speech-to-text-data-collection/Audios/newfile.wav", 22050, audio)
+# 		bytes_wav = bytes()
+# 		byte_io = io.BytesIO(event_data)
+# 		print ("done")
+# 		audio = pydub.AudioSegment.from_raw(byte_io, sample_width=2, frame_rate=22050, channels=1).export("newfile", format='wav')
+# 		write(r"/home/stella_kibika/speech-to-text-data-collection/Audios/newfile.wav", 22050, audio)
 
