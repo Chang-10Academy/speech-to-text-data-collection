@@ -8,8 +8,11 @@ sc = SparkContext.getOrCreate(conf)
 
 def preprocess(path):
     # resample at 8000 Hz
-    sampled_audio, sr = librosa.load('../data/audio/' + path, sr = 8000)
-    librosa.output.write_wav(path = '../data/preprocessed_audio/' + path, y = sampled_audio, sr = 8000) 
+    sr = 8000
+    sampled_audio, sr = librosa.load('../data/audio/' + path, sr = sr)
+    # adjust length
+    sampled_audio = np.pad(sampled_audio, (0, sr*10-len(sampled_audio)), mode = 'constant')
+    librosa.output.write_wav(path = '../data/preprocessed_audio/' + path, y = sampled_audio, sr = sr) 
 
 def preprocess_audios():
     filepaths = os.listdir('../data/audio/')
