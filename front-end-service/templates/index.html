@@ -9,25 +9,16 @@
   <meta name="description" content="">
 
   <title>Speech-to-text data collection </title>
-<!--
-Snapshot Template
-http://www.templatemo.com/tm-493-snapshot
 
-Zoom Slider
-https://vegas.jaysalvat.com/
-
-Caption Hover Effects
-http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
--->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/animate.min.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/component.css">
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/animate.min.css">
+  <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/component.css">
   
-    <link rel="stylesheet" href="css/owl.theme.css">
-  <link rel="stylesheet" href="css/owl.carousel.css">
-  <link rel="stylesheet" href="css/vegas.min.css">
-  <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../static/css/owl.theme.css">
+  <link rel="stylesheet" href="../static/css/owl.carousel.css">
+  <link rel="stylesheet" href="../static/css/vegas.min.css">
+  <link rel="stylesheet" href="../static/css/style.css">
 
   <!-- Google web font  -->
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
@@ -55,9 +46,12 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
           <span class="icon icon-bar"></span>
         </button>
         <a href="#top" class="navbar-brand smoothScroll">Chang Group</a>
+        
       </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
+
+            <!-- <li><p>Hello! This demo has been viewed {{count}} time(s)</p></li> -->
             <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>
             <li><a href="#about" class="smoothScroll"><span>About</span></a></li>
             <li><a href="#contact" class="smoothScroll"><span>Contact</span></a></li>
@@ -76,22 +70,46 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
     <div class="row">
 
       <div class="col-md-offset-1 col-md-10 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
-        <h1>"<span id="transcript"></span>"</h1>
+          <h2>Please hit the record button and record the audio for the text you see below!</h2>
+          <h1 class="mb-5">Text Corpus: "{{data}}"</h1>
+        <!-- <h1>"<span id="transcript"></span>"</h1> -->
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <div id="controls">
-          <p>Start:</p>
-         <button id="recordButton">Record</button>
-         <button id="pauseButton" disabled>Pause</button>
-         <button id="stopButton" disabled>Stop</button>
-        </div>
-        <div id="formats"></div>
-        <p><strong>Recordings:</strong></p>
-        <ol id="recordingsList"></ol>
+        
+                            <!-- Signup form-->
+                            <div class="wrapper">
 
-        <h2 class="wow fadeInUp" data-wow-delay="0.6s">Let's all contribute in making African laguages more accessible in speech_to_text world</h2>
-        <p class="wow fadeInUp" data-wow-delay="0.9s">Chang group is contributing in building a strong pipeline which will be used in deploying a speech-to-text of an African laguage. we would like your contribution by reading this provided word above.</p> 
+                                <!-- Here -->
+
+                          
+                                <section class="main-controls">
+                                  <canvas class="visualizer" height="60px"></canvas>
+                                  <div id="buttons">
+                                    <button class="record">Record</button>
+                                    <button class="stop">Stop</button>
+                                  </div>
+                                </section>
+                          
+                                <section class="sound-clips">
+                          
+                                    
+                                </section>
+                                <button id="upload" style="width: 30%; height: 50px;">Upload</button>
+                                
+
+                              </div>
+                              <header>
+                                <h2>Upload Recorded audio of the Text Above and click SUBMIT RECORDING</h2>
+                              </header>
+                              <form method='POST' enctype="multipart/form-data">
+                                <input type="file" name="audio_data" />
+                                <button type="submit">SUBMIT RECORDING</button>
+                              </form>
+
+        <!-- <h2 class="wow fadeInUp" data-wow-delay="0.6s">Let's all contribute in making African laguages more accessible in speech_to_text world</h2>
+        <p class="wow fadeInUp" data-wow-delay="0.9s">Chang group is contributing in building a strong pipeline which will be used in deploying a speech-to-text of an African laguage. we would like your contribution by reading this provided word above.</p>  -->
  
         <a href="#about" class="smoothScroll btn btn-success btn-lg wow fadeInUp" data-wow-delay="1s">Learn more</a>
         
@@ -123,7 +141,7 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       </div>
 
       <div class="col-md-3 col-sm-4 wow fadeInUp about-img" data-wow-delay="0.6s">
-        <img src="images/10academy.jpg" class="img-responsive img-circle" alt="About">
+        <img src="../static/images/10academy.jpg" class="img-responsive img-circle" alt="About">
       </div>
 
       <div class="clearfix"></div>
@@ -141,7 +159,8 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.4s">
         <div class="team-thumb">
           <div class="image-holder">
-            <img src="images/germain.jpeg" class="img-responsive img-circle" alt="Germain">
+            <img src="../static/images/germain.jpeg" width="200px" class="img-responsive img-circle" alt="Germain" style="border-radius: 28px;">
+            <!-- <img src="../static/img/ethan.jpeg" width="200px" class="img-responsive img-circle" alt="Ethan"style="border-radius: 28px;"> -->
           </div>
           <h2 class="heading">Germain</h2>
           <p class="description">front end developer </p>
@@ -151,7 +170,7 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
         <div class="team-thumb">
           <div class="image-holder">
-            <img src="images/BINYAM.jpeg" class="img-responsive img-circle" alt="Binyam">
+            <img src="../static/images/BINYAM.jpeg" width="200px" class="img-responsive img-circle" alt="Binyam" style="border-radius: 28px;">
           </div>
           <h2 class="heading">Binyam</h2>
           <p class="description">handling kafka producer part.</p>
@@ -161,7 +180,7 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
         <div class="team-thumb">
           <div class="image-holder">
-            <img src="images/Smegnsh.jpeg" class="img-responsive img-circle" alt="Smegnsh">
+            <img src="../static/images/Smegnsh.jpeg" width="200px" class="img-responsive img-circle" alt="Smegnsh" style="border-radius: 28px;">
           </div>
           <h2 class="heading">Smegnsh</h2>
           <p class="description">js developer.</p>
@@ -171,7 +190,7 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
         <div class="team-thumb">
           <div class="image-holder">
-            <img src="images/BORIS.jpeg" class="img-responsive img-circle" alt="Boris">
+            <img src="../static/images/BORIS.jpeg" width="200px"  class="img-responsive img-circle" alt="Boris" style="border-radius: 28px;">
           </div>
           <h2 class="heading">Boris</h2>
           <p class="description">handling Spark part</p>
@@ -181,7 +200,7 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
         <div class="team-thumb">
           <div class="image-holder">
-            <img src="images/ethan.jpeg" class="img-responsive img-circle" alt="Ethan">
+            <img src="../static/images/ethan.jpeg" width="200px"  class="img-responsive img-circle" alt="Ethan" style="border-radius: 28px;">
           </div>
           <h2 class="heading">Ethan</h2>
           <p class="description">Handling kafka consumer part</p>
@@ -191,7 +210,7 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
         <div class="team-thumb">
           <div class="image-holder">
-            <img src="images/Stella.jpg" class="img-responsive img-circle" alt="Stella">
+            <img src="../static/images/Stella.jpg" width="200px" class="img-responsive img-circle" alt="Stella" style="border-radius: 28px;">
           </div>
           <h2 class="heading">Stella</h2>
           <p class="description">Handling s3 bucket part.</p>
@@ -201,7 +220,7 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
         <div class="team-thumb">
           <div class="image-holder">
-            <img src="images/daniel.jpg" class="img-responsive img-circle" alt="daniel">
+            <img src="../static/images/daniel.jpg" width="200px" class="img-responsive img-circle" alt="daniel" style="border-radius: 28px;">
           </div>
           <h2 class="heading">daniel</h2>
           <p class="description">..............</p>
@@ -211,7 +230,7 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
       <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
         <div class="team-thumb">
           <div class="image-holder">
-            <img src="images/Yosef.jpg" class="img-responsive img-circle" alt="Yosef">
+            <img src="../static/images/Yosef.jpg" width="200px" class="img-responsive img-circle" alt="Yosef" style="border-radius: 28px;">
           </div>
           <h2 class="heading">Yosef</h2>
           <p class="description">.................</p>
@@ -293,18 +312,18 @@ http://tympanus.net/codrops/2013/06/18/caption-hover-effects/
 <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 
 <!-- Javascript  -->
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/vegas.min.js"></script>
-<script src="js/modernizr.custom.js"></script>
-<script src="js/toucheffects.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/smoothscroll.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/word.js"></script>
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/vegas.min.js"></script>
+<script src="../static/js/modernizr.custom.js"></script>
+<script src="../static/js/toucheffects.js"></script>
+<script src="../static/js/owl.carousel.min.js"></script>
+<script src="../static/js/smoothscroll.js"></script>
+<script src="../static/js/wow.min.js"></script>
+<script src="../static/js/custom.js"></script>
+<script src="../static/js/word.js"></script>
 <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
-<script src="js/app.js"></script>
+<script src="../static/js/app.js"></script>
 
 
 
