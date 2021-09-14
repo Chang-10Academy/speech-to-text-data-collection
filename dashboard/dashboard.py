@@ -48,7 +48,12 @@ def main():
             return myrecording
         sample_rate = 8000
         st.subheader('Record a 10 second audio while reading out loud the text below')
-        st.write('ይህም ትምህርት ቤቶች ከፖለቲካ ነፃ ከመሆናቸው አኳያ ሲከናወን የነበረው ተግባር ትክክል እንዳልነበር ገዢው ፓርቲም ለይቶ ገምግሞታል')
+        import http.client, json
+        conn = http.client.HTTPConnection("localhost:8000")
+        conn.request("GET", "/")
+        r1 = conn.getresponse()
+        amharic_text = r1.read().decode('utf-8')
+        st.write(amharic_text)
         if st.button(f"Start Recording"):
             myrecording = record(1, sample_rate)
             logging.info("recording complete")
@@ -66,7 +71,7 @@ def main():
                 myrecording, _ = librosa.load('audio.wav')
             except FileNotFoundError:
                 logging.error("audio file not found")
-            producer.send('audiostore', value={"transcript": "ይህም ትምህርት ቤቶች ከፖለቲካ ነፃ ከመሆናቸው አኳያ ሲከናወን የነበረው ተግባር ትክክል እንዳልነበር ገዢው ፓርቲም ለይቶ ገምግሞታል", "sample_rate": sample_rate, "audio": list(map(lambda x:float(x), myrecording))})
+            producer.send('audiostore', value={"transcript": amharic_text, "sample_rate": sample_rate, "audio": list(map(lambda x:float(x), myrecording))})
             st.write("The audio has been sent. Thanks for your cooperation!!!")
             logging.info("Audio Sent")
 if __name__ == "__main__":
