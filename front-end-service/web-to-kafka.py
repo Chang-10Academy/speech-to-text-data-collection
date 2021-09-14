@@ -7,19 +7,25 @@ Created on Mon Sep 13 08:34:51 2021
 
 import json
 #from app import db
-from sqlalchemy import event
+#from sqlalchemy import event
 from kafka import KafkaProducer
 
-def send_order_info_to_kafka(mapper, connection, target):
-    assert record.id is not None
+#record='C:\Users\Smegn\Documents\GitHub\speech-to-text-data-collection\Consumer\recording0.wav'
+#print(record.size)
+
+
+def send_order_info_to_kafka( record):
+    #assert record.id is not None
     producer = KafkaProducer(bootstrap_servers=['localhost:9092'])
     topic_name = 'new_recording'
-    order_dict = {"record_id": record.id,
-"record_size": record.size,
-"record_time_ms": record.time()
+    order_dict = {"record_id": "record.id",
+"record_size": "record.size",
+"record_time_ms": "record.time()"
 }
     producer.send(topic_name, value=json.dumps(order_dict).encode())
     producer.flush()
+
+send_order_info_to_kafka( "record")
 """
  event.listens_for() decorator (imported from the sqlalchemy library).
 decorator monitors the event when the record about the new record is inserted
@@ -41,12 +47,13 @@ import datetime
 from kafka import KafkaConsumer
 #the consumer (web_requests) and the bootstrap_servers parameter 
 #that points to the server where the Kafka cluster is located.
-consumer = KafkaConsumer('web_requests',
-bootstrap_servers=['localhost:9092'],
-auto_offset_reset='earliest',
-enable_auto_commit=True,
-auto_commit_interval_ms=1000,
-consumer_timeout_ms=-1)
+
+#consumer = KafkaConsumer('web_requests',
+#bootstrap_servers=['localhost:9092'],
+##auto_offset_reset='earliest',
+#enable_auto_commit=True,
+#auto_commit_interval_ms=1000,
+#consumer_timeout_ms=-1)
 
 """
 create a function which will poll the Kafka cluster once a minute and 
