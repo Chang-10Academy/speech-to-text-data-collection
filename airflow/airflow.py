@@ -21,7 +21,7 @@ default_args = {
     'retry_delay': timedelta(seconds=5),
 }
 
-def read_unprocessed_data_from_s3():
+def read_unprocessed_data_from_consumer():
     print("reading unprocessed data completed i think")
     pass
     # code that reads audio data kafka
@@ -40,7 +40,7 @@ def save_processed_audio_to_s3():
 
 with DAG( catchup=False, dag_id='audio_processing_dag', schedule_interval='*/1 * * * *', description='Amharic speech data audio processing dag', default_args=default_args) as dag:
   
-  read_unprocessed_data_from_s3 = PythonOperator(
+  read_unprocessed_data_from_consumer = PythonOperator(
     task_id='read_unprocessed_data_from_s3', 
     python_callable=read_unprocessed_data_from_s3, 
     dag=dag)
