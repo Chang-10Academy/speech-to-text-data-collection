@@ -1,0 +1,35 @@
+CREATE USER 'debezium'@'%' IDENTIFIED WITH mysql_native_password BY 'dbz';
+CREATE USER 'replicator'@'%' IDENTIFIED BY 'replpass';
+
+GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT  ON *.* TO 'debezium';
+GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'replicator';
+
+create database text_data;
+
+GRANT ALL PRIVILEGES ON text_data.* TO 'debezium'@'%';
+
+use text_data;
+
+create table text_table (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	text_id INT,
+	collected_text TEXT,
+	CREATE_TS TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	UPDATE_TS TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+create table video_table (
+	id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	video_id INT,
+	video_location VARCHAR(200),
+	CREATE_TS TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	id INT FOREIGN KEY REFERENCES text_table(id)
+);
+
+
+LOAD DATA LOCAL INFILE 'D:/Stella/Documents/10_Academy/Week_7/db_text' 
+INTO TABLE text_table FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS 
+(text_id, collected_text, CREATE_TS, UPDATE_TS)
