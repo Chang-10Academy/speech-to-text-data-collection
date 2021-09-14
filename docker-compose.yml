@@ -45,7 +45,7 @@ services:
     ports: 
       - "5000:5000"
     volumes: 
-      - .:/data_collection
+      - .:/front-end-service
     depends_on: 
       - redis
       - kafka
