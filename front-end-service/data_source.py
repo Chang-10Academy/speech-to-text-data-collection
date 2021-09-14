@@ -26,20 +26,15 @@ def get_text_corpus(n):
 
 
 def get_text_corpus_csv(n):
-    with open(data_path+'data_'+str(n)+'.txt') as f:
-        contents = f.readlines()
-        list_data = []
-        for line in contents:
-            list_text = {}
-            list_text['origin_text_data'] = 'data_'+str(n)
-            list_text["sentence"] = line
-            
-            list_data.append(list_text)
+    df = pd.read_csv("processed.csv")
+    while True:
+        n = random.randint(0,483)
+        data = df.iloc[n]["sentence"]
+        print(data)
+        producer.send("topic0001", {'data': data})
+        time.sleep(1)
 
-
-        f.close()
-
-    return list_data
+    return {'data': data}
 
 
 def cloud_get_text_corpus_to_csv():
