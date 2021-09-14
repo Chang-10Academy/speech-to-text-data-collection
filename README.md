@@ -31,3 +31,10 @@ On the second one, execute the following command to run the kafka consumer
 ```
 python consumer.py
 ```
+
+### Running the pyspark script to preprocess the audio files
+
+```
+cd spark
+spark-submit preprocess_audio_with_pyspark.py
+```
