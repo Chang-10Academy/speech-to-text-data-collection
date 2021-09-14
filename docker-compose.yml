@@ -37,17 +37,17 @@ services:
       ZK_HOSTS: "zookeeper-1:2181"
 
 
-  redis:
-    image: redis
+  # redis:
+  #   image: redis
 
-  web:
-    build: .
-    ports: 
-      - "5000:5000"
-    volumes: 
-      - .:/front-end-service
-    depends_on: 
-      - redis
-      - kafka
+  # web:
+  #   build: .
+  #   ports: 
+  #     - "5000:5000"
+  #   volumes: 
+  #     - .:/front-end-service
+  #   depends_on: 
+  #     - redis
+  #     - kafka
 
 
