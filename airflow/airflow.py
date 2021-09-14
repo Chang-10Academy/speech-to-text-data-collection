@@ -2,7 +2,7 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
-
+from speech-to-text-data-collection import wsgi
 # other packages
 from datetime import datetime as dt
 from datetime import timedelta
@@ -21,20 +21,20 @@ default_args = {
     'retry_delay': timedelta(seconds=5),
 }
 
-def read_unprocessed_data_from_consumer():
-    print("reading unprocessed data completed i think")
-    pass
-    # code that reads audio data kafka
+# def read_unprocessed_data_from_consumer():
+#     print("reading unprocessed data completed i think")
+#     pass
+#     # code that reads audio data kafka
     
-def spark_audio_processing():
-    print("spark audio processing completed")
-    pass
+# def spark_audio_processing():
+#     print("spark audio processing completed")
+#     pass
     
 
-def save_processed_audio_to_s3():
-    print("saving to audio s3 bucket")
+# def save_processed_audio_to_s3():
+#     print("saving to audio s3 bucket")
 
-    pass
+#     pass
     
 
 
@@ -42,7 +42,7 @@ with DAG( catchup=False, dag_id='audio_processing_dag', schedule_interval='*/1 *
   
   read_unprocessed_data_from_producer = PythonOperator(
     task_id='read_unprocessed_data_from_app',
-    python_callable=generate_stream,              # function to be executed
+    python_callable=wsgi,              # function to be executed
     dag=dag,
 )
 #   spark_audio_processing = PythonOperator(
