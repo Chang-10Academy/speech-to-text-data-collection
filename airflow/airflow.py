@@ -2,7 +2,7 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
-from speech-to-text-data-collection import wsgi
+import wsgi
 # other packages
 from datetime import datetime as dt
 from datetime import timedelta
