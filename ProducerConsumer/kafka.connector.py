@@ -22,7 +22,7 @@ import time
 #host = '172.69.0.4:9092'
 host = 'kafka:9092'
 #sample web host
-webHost = "responder:8099"
+webHost = "responder:8083"
 
 print ('responder bridge')
 
