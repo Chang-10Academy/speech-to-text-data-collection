@@ -25,6 +25,6 @@ if __name__ == "__main__":
 		print ("done")
 		audio = pydub.AudioSegment.from_raw(byte_io, sample_width=2, frame_rate=22050, channels=1).export("newfile", format='wav')
 # 		s3.meta.client.upload_file("newfile","chang-stt-bucket","newfile.wav")
-		s3.meta.client.upload_file("newfile","chang-stt-bucket",uuid() + ".wav")
+		s3.meta.client.upload_file("newfile","chang-stt-bucket",uuid.uuidv4() + ".wav")
 		
 
