@@ -5,3 +5,5 @@ wavio
 kafka-python
 pandas
 flask_cors
+docker-py==1.10.6
+kafka-python=2.8.0
